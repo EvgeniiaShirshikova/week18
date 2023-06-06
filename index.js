@@ -170,6 +170,13 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
   `
   superheroElement.insertAdjacentHTML('beforeend', template);
   container.append(superheroElement);
+
+  document.querySelectorAll('.superhero-card__btn').forEach(item => {
+    item.addEventListener('click', function() {
+      const card = item.closest('.superhero-card');
+      card.querySelector('.superhero-card__info').classList.remove('hidden')    
+    });
+  });
 }
 
 // функция для заполнения карточки
@@ -180,12 +187,6 @@ function createCards() {
   });
   }
 
-document.querySelectorAll('.superhero-card__btn').forEach(item => {
-  item.addEventListener('click', function() {
-    const card = item.closest('.superhero-card');
-    card.querySelector('.superhero-card__info').classList.remove('hidden')    
-  });
-});
 
 container.addEventListener('click', (event) => {
   if(event.target.classList.contains('radio')){
