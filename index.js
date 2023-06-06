@@ -131,14 +131,11 @@ const data = [
 document.addEventListener('DOMContentLoaded', () => {
   if(data){
     localStorage.setItem('data', JSON.stringify(data))
-    getData()
+    createCards()
   }
 })
 
-function getData() {
-  const superheroes = JSON.parse(localStorage.getItem('data'));
-  createCards(superheroes);
-}
+const superheroes = JSON.parse(localStorage.getItem('data'));
 
 const container = document.querySelector(".container");
 
@@ -176,9 +173,9 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
 }
 
 // функция для заполнения карточки
-function createCards(arr) {
+function createCards() {
   container.innerHTML='';  
-  arr.forEach(item => {
+  superheroes.forEach(item => {
     renderCard(item);
   });
   }
@@ -190,6 +187,20 @@ document.querySelectorAll('.superhero-card__btn').forEach(item => {
   });
 });
 
-function saveRating() {
+container.addEventListener('click', (event) => {
+  if(event.target.classList.contains('radio')){
+    saveRating(event.target.id, event.target.value)
+}
+});
 
+
+function saveRating(id, value) {
+const newSuperheroes = superheroes.map(item => {
+  if(id.includes(item.id)===true){
+    item.rating = value
+    return item
+  }
+  return item
+})
+localStorage.setItem('data', JSON.stringify(newSuperheroes))
 }
