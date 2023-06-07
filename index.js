@@ -148,15 +148,15 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
         <div class="superhero-card__info hidden">Описание: ${info}</div>
         <button class="superhero-card__btn">More info</button>
         <div class="rating-area">
-            <input class="radio" type="radio" id="${id}5" name="rating" value="5">
+            <input class="radio" type="radio" id="${id}5" name="${id}" value="5">
             <label for="${id}5" title="Оценка «5»"></label>	
-            <input class="radio" type="radio" id="${id}4" name="rating" value="4">
+            <input class="radio" type="radio" id="${id}4" name="${id}" value="4">
             <label for="${id}4" title="Оценка «4»"></label>    
-            <input class="radio" type="radio" id="${id}3" name="rating" value="3">
+            <input class="radio" type="radio" id="${id}3" name="${id}" value="3">
             <label for="${id}3" title="Оценка «3»"></label>  
-            <input class="radio" type="radio" id="${id}2" name="rating" value="2">
+            <input class="radio" type="radio" id="${id}2" name="${id}" value="2">
             <label for="${id}2" title="Оценка «2»"></label>    
-            <input class="radio" type="radio" id="${id}1" name="rating" value="1">
+            <input class="radio" type="radio" id="${id}1" name="${id}" value="1">
             <label for="${id}1" title="Оценка «1»"></label>
         </div>
   `
@@ -181,14 +181,14 @@ function createCards() {
 
 container.addEventListener('click', (event) => {
   if(event.target.classList.contains('radio')){
-    saveRating(event.target.id, event.target.value)
+    saveRating(event.target.name, event.target.value)
 }
 });
 
 
-function saveRating(id, value) {
+function saveRating(name, value) {
 const newSuperheroes = superheroes.map(item => {
-  if(id.includes(item.id)===true){
+  if(name.includes(item.id)===true){
     item.rating = value
     return item
   }
