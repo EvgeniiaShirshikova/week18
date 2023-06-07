@@ -1,10 +1,3 @@
-/* - Сохраните в переменную массив.
-- Вызовите метод `forEach` у массива.
-- В функцию обработчик добавьте код, который относится к работе с DOM.
-- В найденные элементы на странице добавьте информацию из каждого элемента массива.
-- Создайте новый массив `topFilmsList`, в нём должны быть лучшие фильмы режиссёров (они хранятся в полях `top_rated_film`).
- */
-
 const data = [
   {
     "name": "Бетмен",
@@ -140,7 +133,6 @@ const superheroes = JSON.parse(localStorage.getItem('data'));
 const container = document.querySelector(".container");
 
 function renderCard({ name, universe, alterego, occupation, friends, superpowers, url, info, id, rating }) {
-  // объявляем карточку, присваиваем ей шаблон и прописываем, что будем ее клонировать
   const superheroElement = document.createElement('div');
   superheroElement.classList.add('superhero-card');
 
@@ -179,7 +171,6 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
   });
 }
 
-// функция для заполнения карточки
 function createCards() {
   container.innerHTML='';  
   superheroes.forEach(item => {
