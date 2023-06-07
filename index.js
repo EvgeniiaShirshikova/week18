@@ -1,4 +1,4 @@
-const data = [
+let data = [
   {
     "name": "Бетмен",
     "universe": "DC Comics",
@@ -122,13 +122,13 @@ const data = [
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
-  if(data){
-    localStorage.setItem('data', JSON.stringify(data))
-    createCards()
+  const locData = JSON.parse(localStorage.getItem('data'));
+  if(locData){
+    createCards(locData);
+    return
   }
+  createCards(data);
 })
-
-const superheroes = JSON.parse(localStorage.getItem('data'));
 
 const container = document.querySelector(".container");
 
@@ -158,6 +158,7 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
             <label for="${id}2" title="Оценка «2»"></label>    
             <input class="radio" type="radio" id="${id}1" name="${id}" value="1">
             <label for="${id}1" title="Оценка «1»"></label>
+            <input class="radio" type="radio" name="${id}" value="0" disabled checked>
         </div>
   `
   superheroElement.insertAdjacentHTML('beforeend', template);
@@ -171,15 +172,16 @@ function renderCard({ name, universe, alterego, occupation, friends, superpowers
   });
 }
 
-function createCards() {
+function createCards(arr) {
   container.innerHTML='';  
-  superheroes.forEach(item => {
+  arr.forEach(item => {
     renderCard(item);
   });
   }
 
 
 container.addEventListener('click', (event) => {
+
   if(event.target.classList.contains('radio')){
     saveRating(event.target.name, event.target.value)
 }
@@ -187,12 +189,12 @@ container.addEventListener('click', (event) => {
 
 
 function saveRating(name, value) {
-const newSuperheroes = superheroes.map(item => {
+const newData = data.map(item => {
   if(name.includes(item.id)===true){
     item.rating = value
     return item
   }
   return item
 })
-localStorage.setItem('data', JSON.stringify(newSuperheroes))
+localStorage.setItem('data', JSON.stringify(newData));
 }
